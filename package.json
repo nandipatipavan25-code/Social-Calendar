@@ -1,0 +1,26 @@
+{
+  "name": "social-media-posting-calendar",
+  "version": "1.0.0",
+  "description": "Consolidated Social Media Posting Calendar Application with Live Google Sheets Synchronization",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "build": "cd client && npm run build",
+    "dev:server": "node server/index.js",
+    "dev:client": "cd client && npm run dev"
+  },
+  "keywords": [
+    "social-media",
+    "calendar",
+    "google-sheets",
+    "react",
+    "tailwind"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "express": "^5.3.0",
+    "xlsx": "^0.18.5"
+  }
+}

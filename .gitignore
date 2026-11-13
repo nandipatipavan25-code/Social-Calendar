@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+client/node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Test temp files
+test_*.js
+test_live_download.xlsx
+check_*.js
+inspect_*.js
