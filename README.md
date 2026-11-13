@@ -55,14 +55,9 @@ A consolidated web application that eliminates manual cross-tab tracking by auto
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started & Deployment
 
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v18 or higher recommended)
-- npm (installed with Node)
-
-### Installation
+### Local Running
 
 1. Clone the repository:
    ```bash
@@ -70,10 +65,10 @@ A consolidated web application that eliminates manual cross-tab tracking by auto
    cd Social-Calendar
    ```
 
-2. Install dependencies:
+2. Install dependencies & build:
    ```bash
    npm install
-   cd client && npm install && npm run build && cd ..
+   npm run build
    ```
 
 3. Start the application:
@@ -81,10 +76,27 @@ A consolidated web application that eliminates manual cross-tab tracking by auto
    npm start
    ```
 
-4. Open your browser and navigate to:
-   ```
-   http://localhost:5000
-   ```
+4. Open [http://localhost:5000](http://localhost:5000)
+
+---
+
+## 🌐 Deploying to Cloud Hosts (Render, Railway, Heroku)
+
+The repository includes pre-built production assets in `client/dist` and an automated `postinstall` script, so it runs out-of-the-box on any Node.js hosting provider.
+
+### Option 1: Deploy on Render (Recommended - Free Web Service)
+1. Go to [dashboard.render.com](https://dashboard.render.com/) and click **New + > Web Service**.
+2. Connect your GitHub repository: `https://github.com/nandipatipavan25-code/Social-Calendar.git`.
+3. Set the following settings:
+   - **Environment**: `Node`
+   - **Build Command**: `npm run build`
+   - **Start Command**: `npm start`
+4. Click **Deploy Web Service**. Render will build and launch your live URL!
+
+### Option 2: Deploy on Railway
+1. Go to [railway.app](https://railway.app/) and click **New Project > Deploy from GitHub repo**.
+2. Select `Social-Calendar`.
+3. Railway automatically detects `npm run build` and `npm start` and provides a live HTTPS URL.
 
 ---
 
