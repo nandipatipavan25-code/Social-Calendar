@@ -47,31 +47,6 @@ A consolidated web application that eliminates manual cross-tab tracking by auto
 
 ---
 
-## 🚀 Getting Started & Deployment
-
-### Local Running
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/nandipatipavan25-code/Social-Calendar.git
-   cd Social-Calendar
-   ```
-
-2. Install dependencies & build:
-   ```bash
-   npm install
-   npm run build
-   ```
-
-3. Start the application:
-   ```bash
-   npm start
-   ```
-
-4. Open [http://localhost:5000](http://localhost:5000)
-
----
-
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Tailwind CSS, Vite, Lucide Icons
