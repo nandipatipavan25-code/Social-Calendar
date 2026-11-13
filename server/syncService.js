@@ -2,10 +2,16 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const XLSX = require('xlsx');
-const { EXCEL_PATH, DB_PATH, extractPostsFromWorkbook } = require('./extractor');
+const { EXCEL_PATH, DB_PATH: DEFAULT_DB_PATH, extractPostsFromWorkbook } = require('./extractor');
 
 const DEFAULT_SHEET_ID = '1vHL3J2mBLyxLTvrBeh6O9U2LFNGOcjetWKTN2kEu55o';
-const LIVE_XLSX_PATH = path.join(__dirname, '..', 'live_google_sheet.xlsx');
+const IS_VERCEL = !!process.env.VERCEL;
+const WRITABLE_DIR = IS_VERCEL ? '/tmp' : path.join(__dirname, '..');
+const BUNDLED_DB_PATH = path.join(__dirname, '..', 'data_cache.json');
+const BUNDLED_LIVE_XLSX = path.join(__dirname, '..', 'live_google_sheet.xlsx');
+
+const DB_PATH = path.join(WRITABLE_DIR, 'data_cache.json');
+const LIVE_XLSX_PATH = path.join(WRITABLE_DIR, 'live_google_sheet.xlsx');
 
 class SyncService {
   constructor() {
@@ -17,15 +23,16 @@ class SyncService {
     // Do an immediate live sync on startup in background
     setTimeout(() => {
       this.syncFromGoogleSheets().catch(err => {
-        console.warn('Initial live sync error:', err.message);
+        console.warn('Initial live sync notice:', err.message);
       });
     }, 1000);
   }
 
   loadInitialData() {
     try {
-      if (fs.existsSync(DB_PATH)) {
-        const raw = fs.readFileSync(DB_PATH, 'utf8');
+      const pathToCheck = fs.existsSync(DB_PATH) ? DB_PATH : BUNDLED_DB_PATH;
+      if (fs.existsSync(pathToCheck)) {
+        const raw = fs.readFileSync(pathToCheck, 'utf8');
         this.cache = JSON.parse(raw);
         if (this.cache.googleSheetId) {
           this.sheetId = this.cache.googleSheetId;
@@ -114,13 +121,21 @@ class SyncService {
   }
 
   syncFromLocal() {
-    const fileToRead = fs.existsSync(LIVE_XLSX_PATH) ? LIVE_XLSX_PATH : EXCEL_PATH;
-    if (!fs.existsSync(fileToRead)) {
-      throw new Error(`File not found at ${fileToRead}`);
+    let fileToRead = null;
+    if (fs.existsSync(LIVE_XLSX_PATH)) {
+      fileToRead = LIVE_XLSX_PATH;
+    } else if (fs.existsSync(BUNDLED_LIVE_XLSX)) {
+      fileToRead = BUNDLED_LIVE_XLSX;
+    } else if (fs.existsSync(EXCEL_PATH)) {
+      fileToRead = EXCEL_PATH;
+    }
+
+    if (!fileToRead) {
+      throw new Error('No local spreadsheet archive found');
     }
 
     const wb = XLSX.readFile(fileToRead);
-    return this.syncFromWorkbook(wb, fs.existsSync(LIVE_XLSX_PATH) ? 'Google Sheets (Live Cache)' : 'Local Excel Archive');
+    return this.syncFromWorkbook(wb, 'Google Sheets (Live Cache)');
   }
 
   async syncFromGoogleSheets(targetSheetId = null) {
