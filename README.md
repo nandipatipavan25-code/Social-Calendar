@@ -72,35 +72,6 @@ A consolidated web application that eliminates manual cross-tab tracking by auto
 
 ---
 
-## 🌐 Deploying to Cloud Hosts (Vercel, Render, Railway)
-
-### Option 1: Deploy on Vercel (1-Click Deployment)
-The repository includes a ready-to-use `vercel.json` and serverless API handler in `api/index.js`:
-1. Go to [vercel.com/new](https://vercel.com/new) and import your repository:
-   `https://github.com/nandipatipavan25-code/Social-Calendar.git`
-2. Leave all settings at their default (Vercel automatically detects `vercel.json`, `npm run build`, and `client/dist`).
-3. Click **Deploy**. Vercel will build and launch your live URL in under a minute!
-
----
-
-### Option 2: Deploy on Render (Web Service)
-1. Go to [dashboard.render.com](https://dashboard.render.com/) and click **New + > Web Service**.
-2. Connect your GitHub repository: `https://github.com/nandipatipavan25-code/Social-Calendar.git`.
-3. Set the following settings:
-   - **Environment**: `Node`
-   - **Build Command**: `npm run build`
-   - **Start Command**: `npm start`
-4. Click **Deploy Web Service**. Render will build and launch your live URL!
-
----
-
-### Option 3: Deploy on Railway
-1. Go to [railway.app](https://railway.app/) and click **New Project > Deploy from GitHub repo**.
-2. Select `Social-Calendar`.
-3. Railway automatically detects `npm run build` and `npm start` and provides a live HTTPS URL.
-
----
-
 ## 🛠️ Tech Stack
 
 - **Frontend**: React, Tailwind CSS, Vite, Lucide Icons
