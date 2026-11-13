@@ -6,7 +6,9 @@ const app = require('./app');
 const PORT = process.env.PORT || 5000;
 
 // Serve static frontend in standalone/production mode
-const distPath = path.join(__dirname, '..', 'client', 'dist');
+const distPath = fs.existsSync(path.join(__dirname, '..', 'dist'))
+  ? path.join(__dirname, '..', 'dist')
+  : path.join(__dirname, '..', 'client', 'dist');
 if (fs.existsSync(distPath)) {
   app.use(express.static(distPath));
   app.use((req, res) => {
